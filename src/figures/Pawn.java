@@ -6,8 +6,8 @@ public class Pawn extends PlayingFigure {
 
 	private boolean isMoved;
 
-	public Pawn(int i, int j, boolean isWhite) {
-		super(i, j, isWhite);
+	public Pawn(int initialX, int initialY, boolean isWhite) {
+		super(initialX, initialY, isWhite);
 		if (this.isWhite) {
 			this.icon = WHITE_PAWN;
 		} else {
@@ -22,8 +22,8 @@ public class Pawn extends PlayingFigure {
 	}
 
 	@Override
-	public boolean isMovePossible(int x, int y) {
-		return colorMove(this.isWhite, x, y) && super.isMovePossible(x, y);
+	public boolean isMovePossible(int destinationX, int destinationY) {
+		return colorMove(this.isWhite, destinationX, destinationY) && super.isMovePossible(destinationX, destinationY);
 	}
 
 	private boolean colorMove(boolean isWhite, int x, int y) {

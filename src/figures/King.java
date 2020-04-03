@@ -4,8 +4,8 @@ import model.PlayingFigure;
 
 public class King extends PlayingFigure {
 
-	public King(int i, int j, boolean isWhite) {
-		super(i, j, isWhite);
+	public King(int initialX, int initialY, boolean isWhite) {
+		super(initialX, initialY, isWhite);
 		if(this.isWhite){
 			this.icon = WHITE_KING;
 		} else {
@@ -14,8 +14,8 @@ public class King extends PlayingFigure {
 	}
 
 	@Override
-	public boolean isMovePossible(int x, int y) {
-		return super.isMovePossible(x, y)
-				&& (Math.abs(x - this.coordinateX) <= 1 &&  Math.abs(y - this.coordinateY) <= 1 );
+	public boolean isMovePossible(int destinationX, int destinationY) {
+		return super.isMovePossible(destinationX, destinationY)
+				&& (Math.abs(destinationX - this.coordinateX) <= 1 &&  Math.abs(destinationY - this.coordinateY) <= 1 );
 	}
 }

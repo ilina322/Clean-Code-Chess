@@ -28,28 +28,29 @@ public class PlayingFigure {
 	public boolean isAFigure;
 	public String icon;
 
-	public PlayingFigure(int i, int j, boolean isWhite) {
-		if ((i >= 0 || i < 8) && (j >= 0 || j < 8)) {
-			this.coordinateX = i;
-			this.coordinateY = j;
+	public PlayingFigure(int initialX, int initialY, boolean isWhite) {
+		if ((initialX >= 0 || initialX < 8) && (initialY >= 0 || initialY < 8)) {
+			this.coordinateX = initialX;
+			this.coordinateY = initialY;
 			this.isWhite = isWhite;
 			this.icon = EMPTY;
 			this.isAFigure = true;
 		}
 	}
 
+	//TODO: move to board
 	public void border(int x, int y) {
 		Board.board[x][y].setBorder(new LineBorder(new Color(50, 205, 50), 2));
-
 	}
 
-	public void move(int x, int y) {
-		if (isMovePossible(x, y) && !this.isDead) {
-			this.coordinateX = x;
-			this.coordinateY = y;
+	public void move(int destinationX, int destinationY) {
+		if (isMovePossible(destinationX, destinationY) && !this.isDead) {
+			this.coordinateX = destinationX;
+			this.coordinateY = destinationY;
 		}
 	}
 
+	//what is the purpose?
 	public void possibleMoves() {
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 8; j++) {
@@ -61,15 +62,15 @@ public class PlayingFigure {
 	}
 
 	public boolean isMovePossible(int x, int y) {
-		return (x >= 0 || x < 8) && (y >= 0 || y < 8) && !isSomethingInTheWay(x, y);
+		return (x >= 0 || x < 8) && (y >= 0 || y < 8) && !checkObstaclesOnPath(x, y);
 	}
 
-	private boolean isSomethingInTheWay(int x, int y) {
-		return checkHorizontal(x, y) || checkVertical(x, y) || checkDiagonals(x, y);
+	private boolean checkObstaclesOnPath(int x, int y) {
+		return checkHorizontalObstacles(x, y) || checkVerticalObstacles(x, y) || checkDiagonalObstacles(x, y);
 
 	}
 
-	private boolean checkHorizontal(int x, int y) {
+	private boolean checkHorizontalObstacles(int x, int y) {
 		if (this.coordinateY == y) {
 			if (this.coordinateX > x) {
 				for (int i = this.coordinateX - 1; i > x; i--) {
@@ -88,7 +89,7 @@ public class PlayingFigure {
 		return false;
 	}
 
-	private boolean checkVertical(int x, int y) {
+	private boolean checkVerticalObstacles(int x, int y) {
 		if (this.coordinateX == x) {
 			if (this.coordinateY > y) {
 				for (int i = this.coordinateY - 1; i > y; i--) {
@@ -108,7 +109,7 @@ public class PlayingFigure {
 	}
 
 	
-	private boolean checkDiagonals(int x, int y) {
+	private boolean checkDiagonalObstacles(int x, int y) {
 
 		for (int i = 1; i < Math.abs(this.coordinateX - x); i++) {
 			if (x + y == this.coordinateX + this.coordinateY) {

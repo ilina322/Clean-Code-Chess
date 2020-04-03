@@ -4,8 +4,8 @@ import model.PlayingFigure;
 
 public class Rook extends PlayingFigure {
 
-	public Rook(int i, int j, boolean isWhite) {
-		super(i, j, isWhite);
+	public Rook(int initialX, int initialY, boolean isWhite) {
+		super(initialX, initialY, isWhite);
 		if(this.isWhite){
 			this.icon = WHITE_ROOK;
 		} else {
@@ -14,7 +14,7 @@ public class Rook extends PlayingFigure {
 	}
 
 	@Override
-	public boolean isMovePossible(int x, int y) {
-		return super.isMovePossible(x, y) && (x == this.coordinateX || y == this.coordinateY);
+	public boolean isMovePossible(int destinationX, int destinationY) {
+		return super.isMovePossible(destinationX, destinationY) && (destinationX == this.coordinateX || destinationY == this.coordinateY);
 	}
 }

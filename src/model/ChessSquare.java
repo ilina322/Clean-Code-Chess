@@ -32,9 +32,9 @@ public class ChessSquare extends JButton {
 	
 	private void isWhiteTurn(){
 		if(turnWhite){
-			Board.turn.setText("It's whites turn");
+			Board.lblTurn.setText("It's whites turn");
 		}else{
-			Board.turn.setText("It's blacks turn");
+			Board.lblTurn.setText("It's blacks turn");
 		}
 		
 	}
@@ -105,9 +105,9 @@ public class ChessSquare extends JButton {
 							reverseMove();
 						}
 						if (Board.isCheckActive()[0] == 1 || Board.isCheckActive()[0] == -1) {
-							Board.check.setText("CHECK!");
-							Board.check.setVisible(true);
-							Board.contentPane.add(Board.check);
+							Board.lblCheck.setText("CHECK!");
+							Board.lblCheck.setVisible(true);
+							Board.contentPane.add(Board.lblCheck);
 						}
 						turnWhite = !turnWhite;
 					}

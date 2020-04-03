@@ -23,8 +23,8 @@ public class Board extends JFrame {
 	public static JPanel contentPane;
 
 	public static ChessSquare[][] board = new ChessSquare[8][8];
-	public static JLabel check = new JLabel("");
-	public static JLabel turn = new JLabel("It's whites turn.");
+	public static JLabel lblCheck = new JLabel("");
+	public static JLabel lblTurn = new JLabel("It's whites turn.");
 
 
 	public static void createNewBoard() {
@@ -33,51 +33,54 @@ public class Board extends JFrame {
 	}
 
 	public Board() {
-		init();
+		onCreateBoard();
 	}
 
-	private void init() {
-		getGeneralDetails();
+	//TODO: split in separate methods
+	private void onCreateBoard() {
+		setGeneralDetails();
 
-		boolean flag = false;
+		//what is flag about?
+		boolean isSquareWhite = false;
+		//pop-up bounds
 		int bound1 = 35;
 		int bound2 = 25;
-		for (int i = 0; i < board.length; i++) {
-			for (int j = 0; j < board.length; j++) {
-				if (i == 0) {
-					getFigures(i, j, false);
-				} else if (i == 1) {
-					board[i][j] = new ChessSquare(new Pawn(i, j, false));
-				} else if (i == 6) {
-					board[i][j] = new ChessSquare(new Pawn(i, j, true));
-				} else if (i == 7) {
-					getFigures(i, j, true);
+		for (int row = 0; row < board.length; row++) {
+			for (int col = 0; col < board.length; col++) {
+				if (row == 0) {
+					getFigures(row, col, false);
+				} else if (row == 1) {
+					board[row][col] = new ChessSquare(new Pawn(row, col, false));
+				} else if (row == 6) {
+					board[row][col] = new ChessSquare(new Pawn(row, col, true));
+				} else if (row == 7) {
+					getFigures(row, col, true);
 				} else {
-					board[i][j] = new ChessSquare(i, j);
+					board[row][col] = new ChessSquare(row, col);
 				}
 
-				board[i][j].setBorder(new LineBorder(new Color(0, 0, 0)));
-				board[i][j].setContentAreaFilled(false);
-				if (flag) {
-					flag = false;
-					board[i][j].setBackground(Color.WHITE);
+				board[row][col].setBorder(new LineBorder(new Color(0, 0, 0)));
+				board[row][col].setContentAreaFilled(false);
+				if (isSquareWhite) {
+					isSquareWhite = false;
+					board[row][col].setBackground(Color.WHITE);
 				} else {
-					flag = true;
-					board[i][j].setBackground(Color.GRAY);
+					isSquareWhite = true;
+					board[row][col].setBackground(Color.GRAY);
 				}
-				if (j == board.length - 1) {
-					if (flag) {
-						flag = false;
+				if (col == board.length - 1) {
+					if (isSquareWhite) {
+						isSquareWhite = false;
 					} else {
-						flag = true;
+						isSquareWhite = true;
 					}
 				}
-				board[i][j].setOpaque(true);
-				board[i][j].setHorizontalTextPosition(SwingConstants.CENTER);
-				board[i][j].setBounds(bound1, bound2, 35, 35);
-				board[i][j].setIcon(new ImageIcon(board[i][j].getFigure().icon));
-				contentPane.add(board[i][j]);
-				board[i][j].clickListener();
+				board[row][col].setOpaque(true);
+				board[row][col].setHorizontalTextPosition(SwingConstants.CENTER);
+				board[row][col].setBounds(bound1, bound2, 35, 35);
+				board[row][col].setIcon(new ImageIcon(board[row][col].getFigure().icon));
+				contentPane.add(board[row][col]);
+				board[row][col].clickListener();
 				bound1 += 34;
 			}
 			bound2 += 34;
@@ -85,7 +88,7 @@ public class Board extends JFrame {
 		}
 	}
 
-	private void getGeneralDetails() {
+	private void setGeneralDetails() {
 		setTitle("CHESS");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 370);
@@ -96,17 +99,18 @@ public class Board extends JFrame {
 		contentPane.setLayout(null);
 		
 		
-		check.setHorizontalAlignment(SwingConstants.CENTER);
-		check.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		check.setBounds(314, 57, 86, 22);
-		contentPane.add(check);
+		lblCheck.setHorizontalAlignment(SwingConstants.CENTER);
+		lblCheck.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblCheck.setBounds(314, 57, 86, 22);
+		contentPane.add(lblCheck);
 		
 		
-		turn.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		turn.setBounds(314, 24, 93, 14);
-		contentPane.add(turn);
+		lblTurn.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		lblTurn.setBounds(314, 24, 93, 14);
+		contentPane.add(lblTurn);
 	}
 
+	//what does it do? why name starts with get?
 	private void getFigures(int i, int j, boolean flag) {
 		switch (j) {
 		case 0:
@@ -171,7 +175,7 @@ public class Board extends JFrame {
 		return false;
 	}
 	
-	
+	//not used TODO: check if game can be played without it
 	private boolean areThereMoves(int x, int y){
 		boolean [] moves = {false, false, false, false, false, false, false, false};
 		boolean flag = false;
