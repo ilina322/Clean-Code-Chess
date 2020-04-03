@@ -37,7 +37,7 @@ public class Pawn extends PlayingFigure {
 		if (!this.isMoved) {
 			System.out.println();
 			System.out.println("it's not moved \n" + x + " " + y + "\n " + this.coordinateX + " " + this.coordinateY);
-			if ((x - this.coordinateX == dist || x - this.coordinateX == 2 * dist && !Board.board[x][y].getFigure().isAFigure) && y == this.coordinateY
+			if ((x - this.coordinateX == dist || x - this.coordinateX == 2 * dist && !Board.board[x][y].isAFigure) && y == this.coordinateY
 					&& super.isMovePossible(x, y)) {
 				System.out.println("move can be done1");
 				
@@ -45,7 +45,7 @@ public class Pawn extends PlayingFigure {
 			}
 		} else {
 			System.out.println("it is moved");
-			if (x - this.coordinateX == dist && y == this.coordinateY && super.isMovePossible(x, y) && !Board.board[x][y].getFigure().isAFigure) {
+			if (x - this.coordinateX == dist && y == this.coordinateY && super.isMovePossible(x, y) && !Board.board[x][y].isAFigure) {
 				System.out.println("move can be done2");
 				return true;
 			}
@@ -61,7 +61,7 @@ public class Pawn extends PlayingFigure {
 	}
 
 	private boolean canDestroy(int x, int y, int dist) {
-		if (Board.board[x][y].getFigure().isAFigure && Board.board[x][y].getFigure().isWhite != this.isWhite) {
+		if (Board.board[x][y].isAFigure && Board.board[x][y].isWhite != this.isWhite) {
 			System.out.println("they are different");
 			if (x - this.coordinateX == dist && Math.abs(y - this.coordinateY) == 1) {
 				System.out.println("can destroy");

@@ -38,10 +38,6 @@ public class PlayingFigure {
 		}
 	}
 
-	//TODO: move to board
-	public void border(int x, int y) {
-		Board.board[x][y].setBorder(new LineBorder(new Color(50, 205, 50), 2));
-	}
 
 	public void move(int destinationX, int destinationY) {
 		if (isMovePossible(destinationX, destinationY) && !this.isDead) {
@@ -54,8 +50,8 @@ public class PlayingFigure {
 	public void possibleMoves() {
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 8; j++) {
-				if (isMovePossible(i, j) && !Board.board[i][j].isFigWhite() == this.isWhite) {
-					border(i, j);
+				if (isMovePossible(i, j) && !Board.board[i][j].isWhite == this.isWhite) {
+					//border(i, j); ??????
 				}
 			}
 		}
@@ -74,13 +70,13 @@ public class PlayingFigure {
 		if (this.coordinateY == y) {
 			if (this.coordinateX > x) {
 				for (int i = this.coordinateX - 1; i > x; i--) {
-					if (!Board.board[i][y].getFigure().icon.equals(EMPTY)) {
+					if (!Board.board[i][y].icon.equals(EMPTY)) {
 						return true;
 					}
 				}
 			} else {
 				for (int i = this.coordinateX + 1; i < x; i++) {
-					if (!Board.board[i][y].getFigure().icon.equals(EMPTY)) {
+					if (!Board.board[i][y].icon.equals(EMPTY)) {
 						return true;
 					}
 				}
@@ -93,13 +89,13 @@ public class PlayingFigure {
 		if (this.coordinateX == x) {
 			if (this.coordinateY > y) {
 				for (int i = this.coordinateY - 1; i > y; i--) {
-					if (!Board.board[x][i].getFigure().icon.equals(EMPTY)) {
+					if (!Board.board[x][i].icon.equals(EMPTY)) {
 						return true;
 					}
 				}
 			} else {
 				for (int i = this.coordinateY + 1; i < y; i++) {
-					if (!Board.board[x][i].getFigure().icon.equals(EMPTY)) {
+					if (!Board.board[x][i].icon.equals(EMPTY)) {
 						return true;
 					}
 				}
@@ -116,13 +112,13 @@ public class PlayingFigure {
 				if (i < x + y) {
 					if (this.coordinateX < x) {
 						if (this.coordinateX + i < 8 && this.coordinateY - i > -1) {
-							if (!Board.board[this.coordinateX + i][this.coordinateY - i].getFigure().icon
+							if (!Board.board[this.coordinateX + i][this.coordinateY - i].icon
 									.equals(EMPTY)) {
 								return true;
 							}
 						}
 					} else if (this.coordinateX - i > -1 && this.coordinateY + i < 8) {
-						if (!Board.board[this.coordinateX - i][this.coordinateY + i].getFigure().icon.equals(EMPTY)) {
+						if (!Board.board[this.coordinateX - i][this.coordinateY + i].icon.equals(EMPTY)) {
 							return true;
 						}
 					}
@@ -132,14 +128,14 @@ public class PlayingFigure {
 			if (x - y == this.coordinateX - this.coordinateY) {
 				if (x > this.coordinateX) {
 					if (this.coordinateX + i < 8 && this.coordinateY + i < 8) {
-						if (!Board.board[this.coordinateX + i][this.coordinateY + i].getFigure().icon.equals(EMPTY)) {
+						if (!Board.board[this.coordinateX + i][this.coordinateY + i].icon.equals(EMPTY)) {
 							return true;
 						}
 						
 					}
 				} else {
 					if (this.coordinateX - i > -1 && this.coordinateY - i > -1) {
-						if (!Board.board[this.coordinateX - i][this.coordinateY - i].getFigure().icon.equals(EMPTY)) {
+						if (!Board.board[this.coordinateX - i][this.coordinateY - i].icon.equals(EMPTY)) {
 							return true;
 						}
 					}
