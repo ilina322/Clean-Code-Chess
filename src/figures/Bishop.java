@@ -1,3 +1,6 @@
+package figures;
+
+import model.PlayingFigure;
 
 public class Bishop extends PlayingFigure {
 
@@ -11,7 +14,7 @@ public class Bishop extends PlayingFigure {
 	}
 
 	@Override
-	protected boolean isMovePossible(int x, int y) {
+	public boolean isMovePossible(int x, int y) {
 		return super.isMovePossible(x, y) && (Math.abs(this.coordinateX - x) == Math.abs(this.coordinateY - y));
 
 	}

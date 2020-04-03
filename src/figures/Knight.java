@@ -1,3 +1,6 @@
+package figures;
+
+import model.PlayingFigure;
 
 public class Knight extends PlayingFigure {
 
@@ -11,7 +14,7 @@ public class Knight extends PlayingFigure {
 	}
 
 	@Override
-	protected boolean isMovePossible(int x, int y) {
+	public boolean isMovePossible(int x, int y) {
 		System.out.println();
 		System.out.println("it's not moved " + x + " " + y + "\n " + this.coordinateX + " "+ this.coordinateY);
 		return (x >= 0 || x < 8) && (y >= 0 || y < 8)

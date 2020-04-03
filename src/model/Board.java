@@ -1,16 +1,20 @@
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
+package model;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
 import java.awt.Color;
 import javax.swing.border.LineBorder;
+
+import figures.Bishop;
+import figures.King;
+import figures.Knight;
+import figures.Pawn;
+import figures.Queen;
+import figures.Rook;
+
 import javax.swing.JLabel;
 import java.awt.Font;
 
@@ -166,18 +170,6 @@ public class Board extends JFrame {
 		}
 		return false;
 	}
-
-//	private boolean mate() {
-//		if (isCheckActive()[0] == 1) {
-//			int x = isCheckActive()[1];
-//			int y = isCheckActive()[2];
-//			boolean move = areThereMoves(x,y);
-//			
-//			
-//			
-//		}
-//	}
-	
 	
 	
 	private boolean areThereMoves(int x, int y){

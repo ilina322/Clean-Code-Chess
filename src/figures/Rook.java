@@ -1,3 +1,6 @@
+package figures;
+
+import model.PlayingFigure;
 
 public class Rook extends PlayingFigure {
 
@@ -11,7 +14,7 @@ public class Rook extends PlayingFigure {
 	}
 
 	@Override
-	protected boolean isMovePossible(int x, int y) {
+	public boolean isMovePossible(int x, int y) {
 		return super.isMovePossible(x, y) && (x == this.coordinateX || y == this.coordinateY);
 	}
 }

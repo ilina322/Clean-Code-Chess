@@ -1,3 +1,6 @@
+package figures;
+
+import model.PlayingFigure;
 
 public class EmptyFigure extends PlayingFigure {
 

@@ -1,3 +1,4 @@
+package model;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -6,6 +7,8 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.border.LineBorder;
+
+import figures.EmptyFigure;
 
 public class ChessSquare extends JButton {
 

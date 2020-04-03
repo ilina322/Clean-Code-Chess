@@ -1,3 +1,6 @@
+package figures;
+import model.Board;
+import model.PlayingFigure;
 
 public class Pawn extends PlayingFigure {
 
@@ -19,7 +22,7 @@ public class Pawn extends PlayingFigure {
 	}
 
 	@Override
-	protected boolean isMovePossible(int x, int y) {
+	public boolean isMovePossible(int x, int y) {
 		return colorMove(this.isWhite, x, y) && super.isMovePossible(x, y);
 	}
 

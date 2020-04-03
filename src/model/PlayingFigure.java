@@ -1,3 +1,4 @@
+package model;
 import java.awt.Color;
 
 import javax.swing.ImageIcon;
@@ -20,12 +21,12 @@ public class PlayingFigure {
 	public static final String WHITE_KING = "src\\resources\\king_white.png";
 	public static final String EMPTY = "empty";
 
-	int coordinateX;
-	int coordinateY;
-	boolean isDead;
-	boolean isWhite;
-	boolean isAFigure;
-	String icon;
+	public int coordinateX;
+	public int coordinateY;
+	public boolean isDead;
+	public boolean isWhite;
+	public boolean isAFigure;
+	public String icon;
 
 	public PlayingFigure(int i, int j, boolean isWhite) {
 		if ((i >= 0 || i < 8) && (j >= 0 || j < 8)) {
@@ -59,7 +60,7 @@ public class PlayingFigure {
 		}
 	}
 
-	protected boolean isMovePossible(int x, int y) {
+	public boolean isMovePossible(int x, int y) {
 		return (x >= 0 || x < 8) && (y >= 0 || y < 8) && !isSomethingInTheWay(x, y);
 	}
 
