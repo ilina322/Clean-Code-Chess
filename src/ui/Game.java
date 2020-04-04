@@ -2,6 +2,9 @@ package ui;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.EventListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -24,15 +27,39 @@ public class Game extends JFrame {
 	private static final int BOARD_HEIGTH = 8;
 	private static final int BOARD_WIDTH = 8;
 
+	private ActionListener listener;
+	private boolean isFirstClickForTurn;
 	public static JPanel contentPane;
 	public static JLabel lblCheck;
 	public static JLabel lblTurn;
-	private static boolean turnWhite;
 	public Board board;
+	
+	//just for test
+	private int currRow;
+	private int currCol;
+	private int destRow;
+	private int destCol;
 
-	Game() {
+	Game() {		
 		board = new Board();
-		turnWhite = true;
+		isFirstClickForTurn = true;
+		listener = new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ChessSquare currSquare = (ChessSquare)e.getSource();
+				if(isFirstClickForTurn) {
+					currRow = currSquare.row;
+					currCol = currSquare.col;
+				}else {
+					destRow = currSquare.row;
+					destCol = currSquare.col;
+					board.moveFigureFromTo(currRow, currCol, destRow, destCol);
+					setupUserInterface();
+				}
+				isFirstClickForTurn = !isFirstClickForTurn;	
+			}
+		};
 		setGeneralDetails();
 		setupUserInterface();
 	}
@@ -44,7 +71,7 @@ public class Game extends JFrame {
 
 	//TODO: use this method and switch flag on every move
 	private void isWhiteTurn() {
-		if (turnWhite) {
+		if (isFirstClickForTurn) {
 			lblTurn.setText(WHITE_TURN);
 		} else {
 			lblTurn.setText(BLACK_TURN);
@@ -77,34 +104,30 @@ public class Game extends JFrame {
 	
 	private void setupUserInterface() {
 	boolean isCurrentSquareWhite = false;
-	//TODO: what do bounds do? 
-	int bound1 = 35;
-	int bound2 = 25;
+	//TODO: separate bounds from square setup
+	int start = 35;
+	int end = 25;
 	for (int row = 0; row < BOARD_HEIGTH; row++) {
 		for (int col = 0; col < BOARD_WIDTH; col++) {
-			ChessSquare square = new ChessSquare(bound1, bound2);
+			ChessSquare square = new ChessSquare(start, end, row, col);
 			if (isCurrentSquareWhite) {
-				isCurrentSquareWhite = false;
 				square.setBackground(Color.WHITE);
 			} else {
-				isCurrentSquareWhite = true;
 				square.setBackground(Color.GRAY);
 			}
+			isCurrentSquareWhite = !isCurrentSquareWhite;
+			//switch color when new line
 			if (col == BOARD_WIDTH - 1) {
-				if (isCurrentSquareWhite) {
-					isCurrentSquareWhite = false;
-				} else {
-					isCurrentSquareWhite = true;
-				}
+				isCurrentSquareWhite = !isCurrentSquareWhite;
 			}
-			square.setIcon(new ImageIcon(board.getAt(row, col).icon));
-			//TODO: set on click listener to squares
-			//board[row][col].clickListener();
+			PlayingFigure currFigure = board.getAt(row, col);
+			square.setIcon(new ImageIcon(currFigure.icon));
+			square.addActionListener(listener);
 			contentPane.add(square);
-			bound1 += 34;
+			start += 34;
 		}
-		bound2 += 34;
-		bound1 = 35;
+		end += 34;
+		start = 35;
 	}
 }
 

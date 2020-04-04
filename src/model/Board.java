@@ -40,7 +40,10 @@ public class Board{
 	}
 	
 	public PlayingFigure getAt(int row, int col) {
-		return board[row][col];
+		if (row < BOARD_WIDTH && row >= 0 && col < BOARD_HEIGTH && col >= 0) {
+			return board[row][col];
+		}
+		return null;
 	}
 
 	private void setupFigures() {
@@ -92,23 +95,16 @@ public class Board{
 			board[i][j] = new EmptyFigure(i, j, flag);
 		}
 	}
-
-	public static PlayingFigure getPlayingFigure(int x, int y) {
-		if (x < 8 && x >= 0 && y < 8 && y >= 0) {
-			return board[x][y];
-		}
-		return null;
-	}
-
+	
 	public static int[] isCheckActive() {
 		for (int row = 0; row < BOARD_HEIGTH; row++) {
 			for (int col = 0; col < BOARD_WIDTH; col++) {
-				if (getPlayingFigure(row, col).icon.equals(PlayingFigure.BLACK_KING)) {
+				if (board[row][col].icon.equals(PlayingFigure.BLACK_KING)) {
 					if (isKingThreatened(row, col, false)) {
 						return new int[] { 1, row, col };
 					}
 				}
-				if (getPlayingFigure(row, col).icon.equals(PlayingFigure.WHITE_KING)) {
+				if (board[row][col].icon.equals(PlayingFigure.WHITE_KING)) {
 					if (isKingThreatened(row, col, true)) {
 						return new int[] { -1, row, col };
 					}
@@ -122,14 +118,24 @@ public class Board{
 	private static boolean isKingThreatened(int x, int y, boolean isWhite) {
 		for (int row = 0; row < BOARD_HEIGTH; row++) {
 			for (int col = 0; col < BOARD_WIDTH; col++) {
-				if (getPlayingFigure(row,col).isAFigure && getPlayingFigure(row, col).isWhite != isWhite) {
-					if (getPlayingFigure(row, col).isMovePossible(x, y)) {
+				if (board[row][col].isAFigure && board[row][col].isWhite != isWhite) {
+					if (board[row][col].isMovePossible(x, y)) {
 						return true;
 					}
 				}
 			}
 		}
 		return false;
+	}
+
+	
+	public void moveFigureFromTo(int currRow, int currCol, int destRow, int destCol) {
+		PlayingFigure figure = board[currRow][currCol];
+		if(figure.isMovePossible(destRow, destCol)) {
+			board[destRow][destCol] = figure;
+			board[currRow][currCol] = new EmptyFigure(currRow, currCol, true);
+		}
+		System.out.println(figure + " moves to " + destRow + " " + destCol + " is legal: " + figure.isMovePossible(destRow, destCol));
 	}
 
 }

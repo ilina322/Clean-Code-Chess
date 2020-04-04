@@ -34,6 +34,8 @@ public class Pawn extends PlayingFigure {
 			dist = 1;
 		}
 		
+		//TODO: fix this
+		
 		if (!this.isMoved) {
 			System.out.println();
 			System.out.println("it's not moved \n" + x + " " + y + "\n " + this.coordinateX + " " + this.coordinateY);
