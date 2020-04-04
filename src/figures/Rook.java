@@ -15,6 +15,6 @@ public class Rook extends PlayingFigure {
 
 	@Override
 	public boolean isMovePossible(int destinationX, int destinationY) {
-		return super.isMovePossible(destinationX, destinationY) && (destinationX == this.coordinateX || destinationY == this.coordinateY);
+		return super.isMovePossible(destinationX, destinationY) && (destinationX == this.row || destinationY == this.column);
 	}
 }

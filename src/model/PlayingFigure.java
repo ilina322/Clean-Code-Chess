@@ -21,8 +21,8 @@ public class PlayingFigure {
 	public static final String WHITE_KING = "src\\resources\\king_white.png";
 	public static final String EMPTY = "empty";
 
-	public int coordinateX;
-	public int coordinateY;
+	public int row;
+	public int column;
 	public boolean isDead;
 	public boolean isWhite;
 	public boolean isAFigure;
@@ -30,8 +30,8 @@ public class PlayingFigure {
 
 	public PlayingFigure(int initialX, int initialY, boolean isWhite) {
 		if ((initialX >= 0 || initialX < 8) && (initialY >= 0 || initialY < 8)) {
-			this.coordinateX = initialX;
-			this.coordinateY = initialY;
+			this.row = initialX;
+			this.column = initialY;
 			this.isWhite = isWhite;
 			this.icon = EMPTY;
 			this.isAFigure = true;
@@ -41,8 +41,8 @@ public class PlayingFigure {
 
 	public void move(int destinationX, int destinationY) {
 		if (isMovePossible(destinationX, destinationY) && !this.isDead) {
-			this.coordinateX = destinationX;
-			this.coordinateY = destinationY;
+			this.row = destinationX;
+			this.column = destinationY;
 		}
 	}
 
@@ -67,15 +67,15 @@ public class PlayingFigure {
 	}
 
 	private boolean checkHorizontalObstacles(int x, int y) {
-		if (this.coordinateY == y) {
-			if (this.coordinateX > x) {
-				for (int i = this.coordinateX - 1; i > x; i--) {
+		if (this.column == y) {
+			if (this.row > x) {
+				for (int i = this.row - 1; i > x; i--) {
 					if (!Board.board[i][y].icon.equals(EMPTY)) {
 						return true;
 					}
 				}
 			} else {
-				for (int i = this.coordinateX + 1; i < x; i++) {
+				for (int i = this.row + 1; i < x; i++) {
 					if (!Board.board[i][y].icon.equals(EMPTY)) {
 						return true;
 					}
@@ -86,15 +86,15 @@ public class PlayingFigure {
 	}
 
 	private boolean checkVerticalObstacles(int x, int y) {
-		if (this.coordinateX == x) {
-			if (this.coordinateY > y) {
-				for (int i = this.coordinateY - 1; i > y; i--) {
+		if (this.row == x) {
+			if (this.column > y) {
+				for (int i = this.column - 1; i > y; i--) {
 					if (!Board.board[x][i].icon.equals(EMPTY)) {
 						return true;
 					}
 				}
 			} else {
-				for (int i = this.coordinateY + 1; i < y; i++) {
+				for (int i = this.column + 1; i < y; i++) {
 					if (!Board.board[x][i].icon.equals(EMPTY)) {
 						return true;
 					}
@@ -107,35 +107,35 @@ public class PlayingFigure {
 	
 	private boolean checkDiagonalObstacles(int x, int y) {
 
-		for (int i = 1; i < Math.abs(this.coordinateX - x); i++) {
-			if (x + y == this.coordinateX + this.coordinateY) {
+		for (int i = 1; i < Math.abs(this.row - x); i++) {
+			if (x + y == this.row + this.column) {
 				if (i < x + y) {
-					if (this.coordinateX < x) {
-						if (this.coordinateX + i < 8 && this.coordinateY - i > -1) {
-							if (!Board.board[this.coordinateX + i][this.coordinateY - i].icon
+					if (this.row < x) {
+						if (this.row + i < 8 && this.column - i > -1) {
+							if (!Board.board[this.row + i][this.column - i].icon
 									.equals(EMPTY)) {
 								return true;
 							}
 						}
-					} else if (this.coordinateX - i > -1 && this.coordinateY + i < 8) {
-						if (!Board.board[this.coordinateX - i][this.coordinateY + i].icon.equals(EMPTY)) {
+					} else if (this.row - i > -1 && this.column + i < 8) {
+						if (!Board.board[this.row - i][this.column + i].icon.equals(EMPTY)) {
 							return true;
 						}
 					}
 				}
 
 			}
-			if (x - y == this.coordinateX - this.coordinateY) {
-				if (x > this.coordinateX) {
-					if (this.coordinateX + i < 8 && this.coordinateY + i < 8) {
-						if (!Board.board[this.coordinateX + i][this.coordinateY + i].icon.equals(EMPTY)) {
+			if (x - y == this.row - this.column) {
+				if (x > this.row) {
+					if (this.row + i < 8 && this.column + i < 8) {
+						if (!Board.board[this.row + i][this.column + i].icon.equals(EMPTY)) {
 							return true;
 						}
 						
 					}
 				} else {
-					if (this.coordinateX - i > -1 && this.coordinateY - i > -1) {
-						if (!Board.board[this.coordinateX - i][this.coordinateY - i].icon.equals(EMPTY)) {
+					if (this.row - i > -1 && this.column - i > -1) {
+						if (!Board.board[this.row - i][this.column - i].icon.equals(EMPTY)) {
 							return true;
 						}
 					}

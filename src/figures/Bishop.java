@@ -15,7 +15,7 @@ public class Bishop extends PlayingFigure {
 
 	@Override
 	public boolean isMovePossible(int destinationX, int destinationY) {
-		return super.isMovePossible(destinationX, destinationY) && (Math.abs(this.coordinateX - destinationX) == Math.abs(this.coordinateY - destinationY));
+		return super.isMovePossible(destinationX, destinationY) && (Math.abs(this.row - destinationX) == Math.abs(this.column - destinationY));
 
 	}
 

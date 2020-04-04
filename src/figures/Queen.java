@@ -15,8 +15,8 @@ public class Queen extends PlayingFigure {
 
 	@Override
 	public boolean isMovePossible(int destinationX, int destinationY) {
-		return super.isMovePossible(destinationX, destinationY) && ((Math.abs(this.coordinateX - destinationX) == Math.abs(this.coordinateY - destinationY))
-				|| (destinationX == this.coordinateX || destinationY == this.coordinateY));
+		return super.isMovePossible(destinationX, destinationY) && ((Math.abs(this.row - destinationX) == Math.abs(this.column - destinationY))
+				|| (destinationX == this.row || destinationY == this.column));
 	}
 
 }

@@ -129,13 +129,17 @@ public class Board{
 	}
 
 	
-	public void moveFigureFromTo(int currRow, int currCol, int destRow, int destCol) {
-		PlayingFigure figure = board[currRow][currCol];
+	public boolean moveFigureTo(PlayingFigure figure, int destRow, int destCol) {
+		System.out.println(figure + " moves to " + destRow + " " + destCol + " is legal: " + figure.isMovePossible(destRow, destCol));
+		int currRow = figure.row;
+		int currCol = figure.column;
 		if(figure.isMovePossible(destRow, destCol)) {
 			board[destRow][destCol] = figure;
 			board[currRow][currCol] = new EmptyFigure(currRow, currCol, true);
+			return true;
 		}
-		System.out.println(figure + " moves to " + destRow + " " + destCol + " is legal: " + figure.isMovePossible(destRow, destCol));
+		return false;
+		
 	}
 
 }
